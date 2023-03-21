@@ -1,5 +1,6 @@
 import csv
 from pybliometrics.scopus import AbstractRetrieval
+from pybliometrics.scopus import ScopusSearch
 
 #ab = AbstractRetrieval("10.1016/j.softx.2019.100263")
 #print(ab.title)
@@ -11,6 +12,13 @@ ab.affiliation --> Instituição a que é afiliada
 ab.title --> Titulo
 ab.abstract / ab.description --> resumo
 '''
+
+def CodesFromScopus(query, outputName):
+    s = ScopusSearch(query)
+    with open(outputName, 'w') as f:
+        print(s, file=f)
+
+    print(f'A saida foi salva no arquivo {outputName}')
 
 def RetrieveCodes(fileName):
     """from txt to list
@@ -69,6 +77,14 @@ def SaveAbstractInformation(absInfo, fileName):
 
 if __name__ == "__main__":
     pass
+    try:
+        CodesFromScopus('TITLE-ABS-KEY(segregation) AND PUBYEAR BEF 1921', '1800-1921.txt')
+        codesList = RetrieveCodes('1800-1921.txt')
+        informationList = RetrieveInformation(codesList)
+        SaveAbstractInformation(informationList, '1800-1921.csv')
+    except:
+        print('\033[91m Nao foi possivel rodar o codigo. \033[00m')
+
     ''' TESTES
     print(RetrieveCodes("testCodes.txt"))
     dic1 = {'title': 'Test', 'idxterms': 'gato, sapo, lago', 'abstract': 'descrição aqui', 'authors': 'jorge, julia', 'affiliation': 'instituto'}
