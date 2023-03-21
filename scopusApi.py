@@ -32,12 +32,20 @@ def RetrieveCodes(fileName):
 
 
 def RetrieveInformation(codesList):
-    """from codes to txt
+    """from List of codes to List of Dict information
 
     Args:
         codesList (_type_): _description_
     """
-    pass
+    lista = []
+    for code in codesList:
+        ab = AbstractRetrieval(code)
+        if ab.abstract == None:
+            dic1 = {'title': ab.title, 'idxterms': ab.idxterms, 'abstract': ab.description, 'authors': ab.authors, 'affiliation': ab.affiliation}
+        else:
+            dic1 = {'title': ab.title, 'idxterms': ab.idxterms, 'abstract': ab.abstract, 'authors': ab.authors, 'affiliation': ab.affiliation}
+        lista.append(dic1)
+        return lista
 
 
 def SaveAbstractInformation(absInfo, fileName):
@@ -61,7 +69,8 @@ def SaveAbstractInformation(absInfo, fileName):
 
 if __name__ == "__main__":
     pass
-    '''print(RetrieveCodes("testCodes.txt"))
+    ''' TESTES
+    print(RetrieveCodes("testCodes.txt"))
     dic1 = {'title': 'Test', 'idxterms': 'gato, sapo, lago', 'abstract': 'descrição aqui', 'authors': 'jorge, julia', 'affiliation': 'instituto'}
     dic2 = {'title': 'Test 2', 'idxterms': 'cachorro, sabonete, rã', 'abstract': 'descrição aqui 2', 'authors': 'jose, narciso', 'affiliation': 'instituto 2'}
     lista = [dic1, dic2]
